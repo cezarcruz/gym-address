@@ -1,6 +1,6 @@
 module github.com/cezarcruz/gym-address
 
-go 1.21.6
+go 1.21
 
 require (
 	github.com/bytedance/sonic v1.10.2 // indirect
