@@ -6,10 +6,19 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/cezarcruz/gym-address/domain"
+	m "github.com/cezarcruz/gym-address/internal/domain/model"
 )
 
-func GetAddress(zipcode string) domain.Address {
+type AddressViaCepResponse struct {
+	Cep         string `json:"cep"`
+	Logradouro  string `json:"logradouro"`
+	Complemento string `json:"complemento"`
+	Bairro      string `json:"bairro"`
+	Localidade  string `json:"localidade"`
+	Uf          string `json:"uf"`
+}
+
+func GetAddressBy(zipcode string) *m.Address {
 	res, err := http.Get("https://viacep.com.br/ws/" + zipcode + "/json/")
 
 	if err != nil {
@@ -20,10 +29,10 @@ func GetAddress(zipcode string) domain.Address {
 
 	body, _ := io.ReadAll(res.Body)
 
-	var a domain.AddressViaCepResponse
+	var a AddressViaCepResponse
 	json.Unmarshal(body, &a)
 
-	return domain.Address{
+	return &m.Address{
 		Zipcode:      a.Cep,
 		Street:       a.Logradouro,
 		Complement:   a.Complemento,
@@ -31,5 +40,4 @@ func GetAddress(zipcode string) domain.Address {
 		City:         a.Localidade,
 		State:        a.Uf,
 	}
-
 }
