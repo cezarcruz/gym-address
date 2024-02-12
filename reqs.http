@@ -1,1 +1,1 @@
-GET http://localhost:8080/address?zipcode=01001000 HTTP/1.1
+GET http://localhost:8081/address/01001000 HTTP/1.1

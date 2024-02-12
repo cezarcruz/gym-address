@@ -5,20 +5,18 @@ import (
 	"time"
 
 	"github.com/cezarcruz/gym-address/address"
-	"github.com/gin-gonic/gin"
-
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
-
 	configDatabase()
 
-	r := gin.Default()
+	e := echo.New()
 
-	r.GET("/address", address.AddressRetrieve)
+	e.GET("/address/:zipcode", address.GetAddress)
 
-	r.Run()
+	e.Logger.Fatal(e.Start((":8081")))
 }
 
 func configDatabase() {

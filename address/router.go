@@ -1,23 +1,19 @@
 package address
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cezarcruz/gym-address/integration"
-	"github.com/cezarcruz/gym-address/repository"
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
-func AddressRetrieve(c *gin.Context) {
-	zipcode := c.Query("zipcode")
+func GetAddress(c echo.Context) error {
+	zipcode := c.Param("zipcode")
 
-	a := repository.AddressByZipCode(zipcode)
-
-	fmt.Println("reult", a)
+	// 	a := repository.AddressByZipCode(zipcode)
+	// 	fmt.Println("reult", a)
 
 	r := integration.GetAddress(zipcode)
 
-	c.JSON(http.StatusOK, r)
-
+	return c.JSON(http.StatusOK, r)
 }
