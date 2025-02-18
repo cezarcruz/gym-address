@@ -3,7 +3,7 @@ module github.com/cezarcruz/gym-address
 go 1.22.0
 
 require (
-	github.com/go-sql-driver/mysql v1.8.1
+	github.com/go-sql-driver/mysql v1.9.0
 	github.com/labstack/echo/v4 v4.13.1
 )
 
